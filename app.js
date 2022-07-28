@@ -15,4 +15,10 @@ app.use(bodyParser.json());
 
 app.use(mainRouter);
 
+app.use((err, req, res, next) => {
+  res.status(422).send({
+    error: err._message,
+  });
+});
+
 module.exports = app;

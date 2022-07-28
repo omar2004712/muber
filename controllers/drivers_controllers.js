@@ -6,9 +6,17 @@ module.exports = {
       hi: "there",
     });
   },
-  create(req, res) {
-    Driver.create(req.body).then((driver) => {
-      res.send(driver);
-    });
+  create(req, res, next) {
+    Driver.create(req.body)
+      .then((driver) => {
+        res.send(driver);
+      })
+      .catch(next);
+  },
+  edit(req, res, next) {
+    Driver.findByIdAndUpdate(req.params.id, req.body)
+      .then(() => Driver.findById(req.params.id))
+      .then((driver) => res.send(driver))
+      .catch(next);
   },
 };
