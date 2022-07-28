@@ -21,7 +21,7 @@ module.exports = {
   },
   del(req, res, next) {
     Driver.findByIdAndDelete(req.params.id)
-      .then((driver) => res.send(driver))
+      .then((driver) => res.status(204).send(driver))
       .catch(next);
   },
 };
