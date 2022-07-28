@@ -16,6 +16,6 @@ router.put("/api/drivers/:id", edit);
 
 router.delete("/api/drivers/:id", del);
 
-app.get("/api/drivers", index);
+router.get("/api/drivers", index);
 
 module.exports = router;
