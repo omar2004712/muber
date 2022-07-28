@@ -4,6 +4,7 @@ const {
   create,
   edit,
   del,
+  index,
 } = require("../controllers/drivers_controllers");
 const router = express();
 
@@ -14,5 +15,7 @@ router.post("/api/drivers", create);
 router.put("/api/drivers/:id", edit);
 
 router.delete("/api/drivers/:id", del);
+
+app.get("/api/drivers", index);
 
 module.exports = router;
