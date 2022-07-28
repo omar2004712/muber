@@ -19,4 +19,9 @@ module.exports = {
       .then((driver) => res.send(driver))
       .catch(next);
   },
+  del(req, res, next) {
+    Driver.findByIdAndDelete(req.params.id)
+      .then((driver) => res.send(driver))
+      .catch(next);
+  },
 };
