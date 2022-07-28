@@ -53,4 +53,36 @@ describe("Drivers controllers", () => {
         });
     });
   });
+  it("GET to /api/drivers finds drivers in a location", (done) => {
+    const driver1 = new Driver({
+      email: "driver1@test.com",
+      driving: true,
+      geometry: { type: "Point", coordinates: [0, 0.1] },
+    });
+
+    const driver2 = new Driver({
+      email: "driver2@test.com",
+      geometry: { type: "Point", coordinates: [0, 30] },
+    });
+
+    // driver1.save().then(() => {
+    //   request(app)
+    //     .get("/api/drivers?lat=80&lng=20")
+    //     .end((err, res) => {
+    //       console.log(res);
+    //       done();
+    //     });
+    // });
+    Promise.all([driver1.save(), driver2.save()])
+      .then(() => {
+        request(app)
+          .get("/api/drivers?lng=0&lat=0")
+          .end((err, response) => {
+            assert.strictEqual(response.body[0].email, "driver1@test.com");
+            assert.strictEqual(response.body.length, 1);
+            done();
+          });
+      })
+      .catch((err) => console.log(err));
+  });
 });
